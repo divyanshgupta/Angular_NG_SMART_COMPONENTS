@@ -1,13 +1,13 @@
 <button
-  [ngClass]="{ paused: !isPaused }"
-  (click)="isPaused ? start() : pause()"
+  [ngClass]="{ paused: !timer.isPaused }"
+  (click)="timer.isPaused ? timer.start() : timer.pause()"
 >
-  {{ isPaused ? "START" : "PAUSE" }}
+  {{ timer.isPaused ? "START" : "PAUSE" }}
 </button>
 <button
-  [ngClass]="{ disabled: !isStoppable }"
-  [disabled]="!isStoppable"
-  (click)="stop()"
+  [ngClass]="{ disabled: !timer.isStoppable }"
+  [disabled]="!timer.isStoppable"
+  (click)="timer.stop()"
 >
   STOP
 </button>
