@@ -1,19 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ContentChild,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import { TimerDisplayComponent } from './timer-display/timer-display.component';
-import { TimerToggleComponent } from './timer-toggle/timer-toggle.component';
 
-@Component({
-  selector: 'app-timer',
-  template: '<ng-content></ng-content>',
+@Directive({
+  selector: '[appTimer]',
+  exportAs: 'appTimerState',
 })
-export class TimerComponent implements OnInit {
+export class TimerDirective implements OnInit {
   private subscription: Subscription;
 
   @Input() init = 0;

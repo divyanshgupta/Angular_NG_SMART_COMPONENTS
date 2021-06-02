@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TimerComponent } from '../timer.component';
+import { TimerFromDirective } from '../timer-from.directive';
+import { TimerDirective } from '../timer.directive';
 
 @Component({
   selector: 'app-timer-display',
@@ -7,7 +8,11 @@ import { TimerComponent } from '../timer.component';
   styleUrls: ['./timer-display.component.css'],
 })
 export class TimerDisplayComponent implements OnInit {
-  constructor(public timer: TimerComponent) {}
+  timer: TimerDirective;
 
-  ngOnInit(): void {}
+  constructor(public timerFrom: TimerFromDirective) {}
+
+  ngOnInit(): void {
+    this.timer = this.timerFrom.timer;
+  }
 }
