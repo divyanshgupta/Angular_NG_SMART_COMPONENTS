@@ -1,28 +1,14 @@
-<div
-  class="container"
-  appTimer
-  appTimerFrom
-  [interval]="500"
-  [init]="0"
-  #appTimerRef="appTimerFrom"
->
-  <div class="card">
-    <app-timer-toggle></app-timer-toggle>
-    <app-timer-display></app-timer-display>
-    🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙
-  </div>
-
-  <div class="card">
-    <app-timer-toggle></app-timer-toggle>
-    <app-timer-display></app-timer-display>
-    🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙
-  </div>
-</div>
-
-<h2>Antoher Area</h2>
-
-<div class="card" [appTimerFrom]="appTimerRef">
-  <app-timer-toggle></app-timer-toggle>
-  <app-timer-display></app-timer-display>
-  🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙
-</div>
+<app-timer [interval]="500" [init]="0">
+  <ng-template
+    let-value="value"
+    let-paused="isPaused"
+    let-start="start"
+    let-pause="pause"
+  >
+    <div>{{ emojies[value % emojies.length] }}</div>
+    <div>{{ value }}</div>
+    <button (click)="paused ? start() : pause()">
+      {{ paused ? "START" : "PAUSE" }}
+    </button>
+  </ng-template>
+</app-timer>

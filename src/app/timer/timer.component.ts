@@ -1,52 +1,61 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  Input,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
-@Directive({
-  selector: '[appTimer]',
-  exportAs: 'appTimerState',
+@Component({
+  selector: 'app-timer',
+  templateUrl: './timer.component.html',
+  styleUrls: ['./timer.component.css'],
 })
-export class TimerDirective implements OnInit {
+export class TimerComponent implements OnInit {
   private subscription: Subscription;
 
   @Input() init = 0;
   @Input() interval = 1000;
+  @ContentChild(TemplateRef) template: TemplateRef<any>;
 
   value: number;
   isPaused = true;
 
   ngOnInit() {
-    this.stop();
+    this.value = this.init;
+    this.start();
   }
 
-  start() {
+  start = () => {
     this.isPaused = false;
     this.startTimer();
-  }
+  };
 
-  pause() {
+  pause = () => {
     this.isPaused = true;
     this.stopTimer();
-  }
+  };
 
-  stop() {
+  stop = () => {
     this.isPaused = true;
     this.value = this.init;
     this.stopTimer();
+  };
+
+  get isStoppable() {
+    return this.init !== this.value;
   }
 
-  startTimer() {
+  private startTimer() {
     this.subscription = interval(this.interval).subscribe((_) => {
       this.value++;
     });
   }
 
-  stopTimer() {
+  private stopTimer() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
-
-  get isStoppable() {
-    return this.init !== this.value;
   }
 }
